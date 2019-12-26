@@ -1,0 +1,24 @@
+version: '3'
+
+services: 
+    web:
+        build:
+            dockerfile: Dockerfile
+            context: ./web
+        volumes:
+            - "./web:/app"
+        ports: 
+            - "5000:5000"
+    nginx:
+        build:
+            dockerfile: Dockerfile
+            context: ./nginx
+        ports:
+            - "8080:80"
+    transport:
+        image: rabbitmq:management-alpine
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        expose:
+            - "15672"
